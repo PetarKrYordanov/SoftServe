@@ -7,11 +7,11 @@ using SoftImage.Vision.Common;
 
 namespace SoftImage.Vision.BlobStorage
 {
-  public  class BlobService :IBlobService
+  public   class BlobService :IBlobService
     {
      private   CloudStorageAccount account => CloudStorageAccount.Parse(ConnectionInfo.connectionStringBlob);
 
-        public string GetPictureUrlByName(string imageName)
+        public  string GetPictureUrlByName(string imageName)
         {
        CloudBlobClient serviceClient = account.CreateCloudBlobClient();
 
@@ -22,7 +22,7 @@ namespace SoftImage.Vision.BlobStorage
 
             SharedAccessBlobPolicy sasConstraints = new SharedAccessBlobPolicy();
             sasConstraints.SharedAccessStartTime = DateTimeOffset.UtcNow.AddMinutes(-5);
-            sasConstraints.SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddMilliseconds(5000);
+            sasConstraints.SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddMinutes(5);
             sasConstraints.Permissions = SharedAccessBlobPermissions.Read;
 
 

@@ -12,17 +12,11 @@ namespace SoftImage.Vision
             Console.WriteLine("Enter picture name");
             var imageName = Console.ReadLine();
 
-            BlobService blobService = new BlobService();
-            string url = blobService.GetPictureUrlByName(imageName);
-
+         
             IImageInformation imageInformation = new TagInformation();
-            var tagsInfo = imageInformation.GetAnalysisAsync(url);
+            var tagsInfo = imageInformation.GetAnalysisAsync(imageName);
 
-            Console.WriteLine("Computer vision found the following tags:");
-            foreach (var item in tagsInfo.Tags)
-            {
-                Console.WriteLine($"{item.Name} with confidence {item.Confidence:f3}");
-            }
+            
             Console.ReadKey();
         }
     }

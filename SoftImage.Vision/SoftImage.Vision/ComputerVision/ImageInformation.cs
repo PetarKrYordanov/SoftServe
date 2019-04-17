@@ -11,9 +11,9 @@ namespace SoftImage.Vision
     public abstract class ImageInformation : IImageInformation
     {
 
-        protected string endpoint = ConnectionInfo.endpointComputerVision;
+        public string endpoint = ConnectionInfo.endpointComputerVision;
 
-        public abstract ImageAnalysis GetAnalysisAsync(string url);
+        public abstract ICollection<string> GetAnalysisAsync(string url);
 
         public virtual List<VisualFeatureTypes> FeatureTypes()
         {

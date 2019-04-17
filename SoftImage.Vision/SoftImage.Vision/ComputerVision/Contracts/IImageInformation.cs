@@ -1,9 +1,9 @@
-﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+﻿using System.Collections.Generic;
 
 namespace SoftImage.Vision.ComputerVision.Contracts
 {
     public interface IImageInformation
     {
-        ImageAnalysis GetAnalysisAsync(string url);
+        ICollection<string> GetAnalysisAsync(string url);
     }
 }
