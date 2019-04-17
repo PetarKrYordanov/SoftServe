@@ -1,0 +1,27 @@
+﻿@model ImageServe.WebModels.BindingModels.ImageUploadBindingModel
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<div class="container">
+    <form method="post" enctype="multipart/form-data" asp-controller="Image" asp-action="Upload">
+        <div class="form-group">
+            <label for="exampleTextarea">Write a description about your picture</label>
+            <textarea asp-for="Description" class="form-control" id="exampleTextarea" rows="3"></textarea>
+                       
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input asp-for="File" id="js-upload-files" required>
+                    @*<label class="custom-file-label" for="js-upload-files"></label>*@
+                </div>
+            </div>
+            <div class="IsPublicCheckbox">
+                <input asp-for="IsPublic" type="checkbox" value="true" :checked /> Public
+            </div>
+            
+            <button type="submit" class="btn btn-success" id="js-upload-submit">Upload</button>
+
+        </div>
+    </form>
+</div>
+

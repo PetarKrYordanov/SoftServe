@@ -1,0 +1,21 @@
+﻿@model ImageServe.WebModels.ViewModels.UserEditViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data" asp-controller="Profile" asp-action="Edit">
+            <div >
+                <br />
+                <br />
+                <p>Write a description about yourself:</p>
+                <textarea name="details" id="details" cols="40" rows="10">@Model.Details</textarea>
+            </div>
+            <div >
+                <button type="submit" class="btn btn-sm btn-success pull-left" id="js-upload-submit">Save Details</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿@model ImageServe.WebModels.ViewModels.CommentViewModel
+
+<div class="form-group" id="comments-form">    
+    <form method="post" asp-controller="Image" asp-action="Comment">
+        <input asp-for="ImageId" type="hidden" />
+        <input asp-for="MainCommentId" type="hidden" />
+        <input asp-for="Message" class="form-control" />
+        <button type="submit" class="btn btn-outline-info" id="comment-submit-btn">Submit</button>
+    </form>
+    
+</div>

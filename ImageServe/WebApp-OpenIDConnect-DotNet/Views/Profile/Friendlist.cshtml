@@ -1,0 +1,52 @@
+﻿@model  ImageServe.WebModels.ViewModels.UserFriendlistViewModel
+@{
+    ViewData["Title"] = "Friendlist";
+}
+
+<h2>Friendlist</h2>
+<form method="post">
+    <div class="ui-widget">
+        <div class="form-group">
+            <input asp-for="AddFriend" type="text" id="privacy" placeholder="Search for user" />
+            <span asp-validation-for="AddFriend" class="text-danger"></span>
+            <button type="submit" class="btn btn-link">Add</button>
+        </div>
+    </div>
+</form>
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var friend in Model.UserFriends)
+        {
+            <div class="shadow">
+                <div class="col-sm-12">
+                    @if (friend.FriendAvatar != null)
+                    {
+                        <div class="col-sm-2">
+                            <img src="https://netacademy.blob.core.windows.net/thumbs/@friend.FriendAvatar-thumb.jpg" class="img-circle" width="40px" height="40px">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-2">
+                            <img src="~/images/blank-user.png" class="img-circle" width="40px" height="40px">
+                        </div>
+                    }
+
+                    <div class="col-sm-6">
+                        <h4><a asp-controller="Profile" asp-action="Details" asp-route-id="@friend.FriendId">@friend.FriendFullName</a></h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <a asp-controller="Profile" asp-action="RemoveFriend" asp-route-friendId="@friend.FriendId"><button type="button" class="btn btn-sm btn-sm">Remove</button></a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+            </div>
+        }
+
+
+    </div>
+        </div>
+</div>
+

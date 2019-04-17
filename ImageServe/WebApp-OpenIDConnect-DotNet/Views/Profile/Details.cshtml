@@ -1,0 +1,72 @@
+﻿@using PagedList.Core;
+@model ImageServe.WebModels.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = Model.GetFullName();
+}
+
+
+
+<div class="container">
+
+    <div class="row" id="user-info">
+        <div class="col">
+            @if (Model.Avatar == null)
+            {
+                <img src="~/images/blank-user.png" alt="Alternate Text" class="img-thumbnail" width="200" height="200" />
+            }
+            else
+            {
+                <img src="https://netacademy.blob.core.windows.net/images/@Model.Avatar" alt="Alternate Text" class="img-thumbnail" width="200" height="200" />
+            }
+        </div>
+        <div class="col">
+            <h2 class="user-name">
+                @Model.GetFullName()
+            </h2>
+            @if (Model.Details == null)
+            {
+                <p class="user-description">No description.</p>
+
+            }
+            else
+            {
+                <div class="row">
+                    <p>@Model.Details</p>
+                </div>
+                
+            }
+
+            @if (User.Claims.ToArray()[0].Value.ToString() == Model.Id)
+            {
+
+                <div class="row" id="user-btns">
+                    <a asp-area="" asp-controller="Profile" asp-action="Edit" class="btn btn-success" id="edit-profile-btn">Edit</a>
+                    <a asp-area="" asp-controller="Profile" asp-action="Friendlist" class="btn btn-success" id="user-friend-list-btn">Friendlist</a>
+                </div>
+            }
+        </div>
+    </div>
+  
+</div>
+
+<h2 align ="center">Images</h2>
+<div class="container page-top">
+    <div class="row">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+
+                <a asp-controller="Image" asp-action="Details" asp-route-id="@image.Id" class="fancybox" >
+                    <img src="https://netacademy.blob.core.windows.net/images/@image.Name" class="zoom img-fluid " alt="">
+                </a>
+            </div>
+        }
+    </div>
+    <div class="pagination pagination-sm">
+        <pager class="page-link" list="(IPagedList<ImageServe.WebModels.Dtos.ImageDto>)@Model.Images" asp-action="Details" asp-controller="Profile" />
+    </div>
+</div>
+
+
+
+

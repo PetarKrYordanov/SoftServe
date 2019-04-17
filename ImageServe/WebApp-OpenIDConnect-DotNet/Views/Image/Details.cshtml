@@ -1,0 +1,104 @@
+﻿@using ImageServe.WebModels.ViewModels
+@model ImageServe.WebModels.ViewModels.ImageViewModel
+@{
+    ViewData["Title"] = "ImageDetails";
+}
+
+
+<div class="card mb-3">
+    @if (@User.Claims.ToArray()[0].Value.ToString() == Model.User.Id)
+    {
+        <div class="card-header">
+            <div class="row">
+                <div class="col-6">
+                    <a asp-controller="Image" asp-action="Remove" asp-route-id="@Model.Id" class="btn btn-danger" id="details-delete-btn">Delete</a>
+                    <a asp-area="" asp-controller="Image" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning" id="details-edit-btn">Edit</a>
+                </div>
+    
+                <div class="col-6">
+                    <a asp-controller="Profile" asp-action="SetAvatar" asp-route-name="@Model.Name">
+                        <span type="button" class="btn btn-success" id="profile-pic-btn">Set as profile picture</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+        <div class="pic-container">
+            <img src="@Model.GetImageUrl()" alt="Card image" id="img-details" style="margin:auto">
+            <div class="card-body">
+                <div class="row" id="tags">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span class="badge badge-secondary"><b>@tag.Name</b></span>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6" id="like-div">
+                    <div id="likes">Likes: @Model.LikesCount</div>
+                    <div id="like-btn" class="btn btn-outline-secondary @(Model.IsLiked ? "checked" : "unchecked")" user="@Model.CurrentUser" image="@Model.Id">Like</div>
+                </div>
+                <div class="col-6">
+                    <h5 class="card-title" id="details-name"><a asp-controller="Profile" asp-action="Details" asp-route-id="@Model.User.Id">@Model.User.GetFullName()</a></h5>
+                    <h6 class="card-subtitle text-muted" id="details-date">@Model.DateUploaded</h6>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description: @Model.Description</li>
+        </ul>
+
+
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Comments</h4>
+            <h6 class="comment-label">Write a comment:</h6>
+
+            <div>
+                @{
+                    await Html.RenderPartialAsync("MainComment", new CommentViewModel { ImageId = Model.Id, MainCommentId = 0 });
+                }
+
+                @foreach (var c in Model.MainComments.OrderByDescending(t => t.Created))
+                {
+                    <div class="main-comment-box">
+                        <div class="test">
+                            <h5 class="card-subtitle mb-2 text-muted" id="comment-main">@c.Message</h5>
+                            <h6>- by @c.UserName</h6>
+                            <h6>@c.Created</h6>
+                        </div>
+                        <div class="main-comment">
+                            <p>Reply</p>
+                            <div class="main-comment" id="comment">
+                                @{
+                                    await Html.RenderPartialAsync("MainComment", new CommentViewModel { ImageId = Model.Id, MainCommentId = c.Id });
+                                }
+                            </div>
+                            <div class="reply">
+
+                                @foreach (var sc in c.SubComments.OrderByDescending(t => t.Created))
+                                {
+
+                                    <h5 class="card-subtitle">@sc.Message</h5>
+                                    <h6>- by @sc.UserName</h6>
+                                    <h6>@sc.Created</h6>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+
+

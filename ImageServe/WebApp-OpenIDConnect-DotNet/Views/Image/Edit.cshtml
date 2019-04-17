@@ -1,0 +1,57 @@
+﻿@model ImageServe.WebModels.BindingModels.ImageEditBindingModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+<div class="container">
+            <div class="card mb-3">
+                <div class="panel-body">
+
+                    <div class="col-6" id="edit-name">
+                        <h5>
+                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@Model.User.Id">@Model.User.GetFullName()</a>
+                        </h5>
+                        <h6>@Model.DateUploaded</h6>
+                    </div>
+                    <div class="pic-container">
+                        <img src="@Model.GetImageUrl()" class="img-responsive" id="img-details"><hr>
+                    </div>
+                    <form asp-action="Edit" asp-route-name="@Model.Name">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <p class="control-label">Description</p>
+                                    <input asp-for="Description" class="form-control" id="edit-textbox" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <input asp-for="IsPublic" /> Public
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div class="form-group">
+                                <input type="submit" value="Save"  class="btn btn-outline-success" />
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+

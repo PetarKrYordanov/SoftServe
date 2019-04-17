@@ -1,0 +1,36 @@
+﻿@model PagedList.Core.IPagedList<ImageServe.WebModels.ViewModels.ImageViewModel>
+
+@{
+    ViewData["Title"] = "News feed";
+}
+
+<br />
+
+<div class="container">
+    <div class="row">
+        @foreach (var img in Model)
+        {
+            <div class="col-md-4">
+                <div class="artist-data pull-left">
+                    <div class="artst-pic pull-left">
+                        <span class="artst-like"><a href=""><i class="glyphicon glyphicon-link"></i></a></span>
+                        <a asp-controller="Image" asp-action="Details" asp-route-id="@img.Id">                          
+                            <img src="@img.GetThumbUrl()" class="img-thumbnail" alt="...">
+                        </a>
+                        <div class="like">Likes: @img.LikesCount</div>
+                    </div>
+
+                    <div class="pic-info">
+                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@img.User.Id">@img.User.GetFullName()</a>
+                        <span class="daysago">@img.DateUploaded</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="pagination pagination-sm">      
+       <pager class="page-link" list="@Model" asp-action="Index" asp-controller="Home" />          
+    </div>
+</div>
+

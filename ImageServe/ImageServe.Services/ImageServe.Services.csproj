@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PagedList.Core.Mvc" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlobStorageTools\BlobStorageTools.csproj" />
+    <ProjectReference Include="..\ComputerVisionTools\ComputerVisionTools.csproj" />
+    <ProjectReference Include="..\ImageServe.Data\ImageServe.Data.csproj" />
+    <ProjectReference Include="..\ImageServe.WebModels\ImageServe.WebModels.csproj" />
+    <ProjectReference Include="..\TextAnalyticsTools\TextAnalyticsTools.csproj" />
+  </ItemGroup>
+
+</Project>
